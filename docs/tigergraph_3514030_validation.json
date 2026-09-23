@@ -1,0 +1,135 @@
+{
+  "case_id": "HHG-001",
+  "transaction_id": "3514030",
+  "graph_status": "complete",
+  "connected_customers": [
+    "C12382"
+  ],
+  "connected_cards": [
+    "21139"
+  ],
+  "connected_devices": [],
+  "connected_regions": [
+    "444.0"
+  ],
+  "related_transaction_id_count": 421,
+  "pattern_assessment": {
+    "related_count": 421,
+    "high_risk_count": 5,
+    "medium_high_risk_count": 8,
+    "online_count": 2,
+    "small_amount_count": 12,
+    "total_related_amount": 48706.58,
+    "maximum_related_amount": 845.01
+  },
+  "velocity": {
+    "within_1h": 0,
+    "within_6h": 3,
+    "within_24h": 5,
+    "amount_1h": 0.0,
+    "amount_6h": 315.89,
+    "amount_24h": 404.02
+  },
+  "fraud_pattern_signals": {
+    "small_online_count": 0,
+    "online_count": 2,
+    "small_online_amount": 0.0,
+    "high_risk_count": 5,
+    "medium_high_risk_count": 8,
+    "largest_related_amount": 845.01
+  },
+  "query_provenance": {
+    "investigate_transaction": {
+      "query": "investigate_transaction",
+      "graph": "HHGOA_Fraud",
+      "transaction_id": "3514030",
+      "transport": "pyTigerGraph.runInstalledQuery",
+      "started_at": "2026-09-23T17:19:49.409127+00:00",
+      "status": "complete",
+      "field_mapping": {
+        "@@customers": "connected_customers",
+        "@@cards": "connected_cards",
+        "@@devices": "connected_devices",
+        "@@emails": "connected_emails",
+        "@@regions": "connected_regions",
+        "@@related_txns": "related_transactions"
+      },
+      "completed_at": "2026-09-23T17:19:51.049680+00:00"
+    },
+    "risk_pattern_summary": {
+      "query": "risk_pattern_summary",
+      "graph": "HHGOA_Fraud",
+      "transaction_id": "3514030",
+      "transport": "pyTigerGraph.runInstalledQuery",
+      "started_at": "2026-09-23T17:19:51.049698+00:00",
+      "status": "complete",
+      "field_mapping": {
+        "@@related_count": "related_count",
+        "@@high_risk_count": "high_risk_count",
+        "@@medium_high_risk_count": "medium_high_risk_count",
+        "@@online_count": "online_count",
+        "@@small_amount_count": "small_amount_count",
+        "@@total_amount": "total_related_amount",
+        "@@max_amount": "maximum_related_amount"
+      },
+      "completed_at": "2026-09-23T17:19:51.712974+00:00"
+    },
+    "detect_fraud_patterns": {
+      "query": "detect_fraud_patterns",
+      "graph": "HHGOA_Fraud",
+      "transaction_id": "3514030",
+      "transport": "pyTigerGraph.runInstalledQuery",
+      "started_at": "2026-09-23T17:19:51.712987+00:00",
+      "status": "complete",
+      "field_mapping": {
+        "@@small_online": "small_online_count",
+        "@@online_total": "online_count",
+        "@@small_online_amount": "small_online_amount",
+        "@@high_risk": "high_risk_count",
+        "@@medium_high_risk": "medium_high_risk_count",
+        "@@largest_amount": "largest_related_amount"
+      },
+      "completed_at": "2026-09-23T17:19:52.126449+00:00"
+    },
+    "transaction_velocity": {
+      "query": "transaction_velocity",
+      "graph": "HHGOA_Fraud",
+      "transaction_id": "3514030",
+      "transport": "pyTigerGraph.runInstalledQuery",
+      "started_at": "2026-09-23T17:19:52.126463+00:00",
+      "status": "complete",
+      "field_mapping": {
+        "@@within_1h": "within_1h",
+        "@@within_6h": "within_6h",
+        "@@within_24h": "within_24h",
+        "@@amount_1h": "amount_1h",
+        "@@amount_6h": "amount_6h",
+        "@@amount_24h": "amount_24h"
+      },
+      "completed_at": "2026-09-23T17:19:52.554192+00:00"
+    }
+  },
+  "workflow": {
+    "exposure_usd": 77.07,
+    "fraud_probability": 0.61,
+    "verdict": "medium_risk",
+    "card_testing": false,
+    "affected_txn_ids": [],
+    "initial_actions": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Case required because investigation evidence or fraud probability meets case criteria."
+      }
+    ],
+    "final_actions": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Case required because investigation evidence or fraud probability meets case criteria."
+      }
+    ],
+    "file_report": false
+  },
+  "validation": "All benchmark assertions passed using real CSV and live TigerGraph queries."
+}

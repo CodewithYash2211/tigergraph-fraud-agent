@@ -1,0 +1,12 @@
+
+.tg_token
+
+.tg_token
+
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+.pytest_cache/
