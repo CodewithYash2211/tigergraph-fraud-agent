@@ -1,0 +1,92 @@
+{
+  "VertexTypes": [
+    {
+      "Config": {
+        "STATS": "OUTDEGREE_BY_EDGETYPE",
+        "PRIMARY_ID_AS_ATTRIBUTE": true
+      },
+      "IsLocal": true,
+      "Attributes": [
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "customer_id"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "card_id"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "opened_at"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "closed_at"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "outcome"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "pattern"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "first_fraud_txn_id"
+        }
+      ],
+      "PrimaryId": {
+        "AttributeType": {
+          "Name": "STRING"
+        },
+        "PrimaryIdAsAttribute": true,
+        "AttributeName": "case_id"
+      },
+      "Name": "ClosedCase"
+    }
+  ],
+  "EdgeTypes": [
+    {
+      "IsDirected": false,
+      "ToVertexTypeName": "Transaction",
+      "Config": {},
+      "IsLocal": true,
+      "Attributes": [],
+      "FromVertexTypeName": "ClosedCase",
+      "Name": "INVOLVES"
+    },
+    {
+      "IsDirected": false,
+      "ToVertexTypeName": "Card",
+      "Config": {},
+      "IsLocal": true,
+      "Attributes": [],
+      "FromVertexTypeName": "ClosedCase",
+      "Name": "ON_CARD"
+    },
+    {
+      "IsDirected": false,
+      "ToVertexTypeName": "Card",
+      "Config": {},
+      "IsLocal": true,
+      "Attributes": [],
+      "FromVertexTypeName": "ClosedCase",
+      "Name": "CONNECTED_TO"
+    }
+  ]
+}

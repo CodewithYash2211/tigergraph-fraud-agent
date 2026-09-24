@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-09-24T04:24:46.843916+00:00",
+  "readbacks": [
+    {
+      "case_id": "HHG-001",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-002",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-003",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-004",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-005",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-006",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-007",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-008",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-009",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-010",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-011",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-012",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-013",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-014",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-015",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-016",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-017",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-018",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-019",
+      "verified": true,
+      "record_attribute": "outcome"
+    },
+    {
+      "case_id": "HHG-020",
+      "verified": true,
+      "record_attribute": "outcome"
+    }
+  ],
+  "total": 20,
+  "completed": 20,
+  "failed": 0,
+  "graph_complete": 20,
+  "persistence_counts": {
+    "success": 20,
+    "uncertain": 0,
+    "failed": 0
+  },
+  "persistence_failures": [],
+  "local_cases_preserved": 20,
+  "protected_files_unchanged": true,
+  "changed_protected_paths": [],
+  "readbacks_verified": 20
+}

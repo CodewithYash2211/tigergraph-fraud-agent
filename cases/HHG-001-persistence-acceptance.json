@@ -1,0 +1,132 @@
+{
+  "case_id": "HHG-001",
+  "previous_persistence": {
+    "status": "failed",
+    "case_id": "HHG-001",
+    "graph": "HHGOA_Fraud",
+    "operation": "upsertVertex",
+    "vertex_type": "ClosedCase",
+    "started_at": "2026-09-24T03:59:34.033488+00:00",
+    "write_attempted": false,
+    "link_mode": "stored_identifiers",
+    "reason": "ClosedCase needs an existing STRING evidence_summary or analyst_notes field.",
+    "completed_at": "2026-09-24T03:59:35.721298+00:00"
+  },
+  "readback_verified": true,
+  "schema_discovered": [
+    {
+      "Config": {
+        "STATS": "OUTDEGREE_BY_EDGETYPE",
+        "PRIMARY_ID_AS_ATTRIBUTE": true
+      },
+      "IsLocal": true,
+      "Attributes": [
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "customer_id"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "card_id"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "opened_at"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "closed_at"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "outcome"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "pattern"
+        },
+        {
+          "AttributeType": {
+            "Name": "STRING"
+          },
+          "AttributeName": "first_fraud_txn_id"
+        }
+      ],
+      "PrimaryId": {
+        "AttributeType": {
+          "Name": "STRING"
+        },
+        "PrimaryIdAsAttribute": true,
+        "AttributeName": "case_id"
+      },
+      "Name": "ClosedCase"
+    }
+  ],
+  "write_result": {
+    "status": "success",
+    "case_id": "HHG-001",
+    "graph": "HHGOA_Fraud",
+    "operation": "upsertVertex",
+    "vertex_type": "ClosedCase",
+    "started_at": "2026-09-24T04:19:43.143032+00:00",
+    "write_attempted": true,
+    "link_mode": "existing_schema_edges",
+    "error": null,
+    "edges": [
+      {
+        "edge_type": "INVOLVES",
+        "target_type": "Transaction",
+        "target_id": "3514030",
+        "status": "success"
+      },
+      {
+        "edge_type": "ON_CARD",
+        "target_type": "Card",
+        "target_id": "21139",
+        "status": "success"
+      }
+    ],
+    "record_attribute": "outcome",
+    "attribute_names": [
+      "card_id",
+      "customer_id",
+      "opened_at",
+      "outcome",
+      "pattern"
+    ],
+    "payload_sha256": "eeb4fcb0063a0219467ee19ee5ec67a3b8208b095efe3cc51a9d16c6283be4b3",
+    "accepted_vertices": 1,
+    "vertex_status": "success",
+    "completed_at": "2026-09-24T04:19:44.716191+00:00"
+  },
+  "readback_record": {
+    "record_type": "HHGOA_INVESTIGATION",
+    "case_id": "HHG-001",
+    "customer_id": "C12382",
+    "card_id": "C12382-K1",
+    "flagged_txn_id": "3514030",
+    "verdict": "medium_risk",
+    "risk_score": 0.61,
+    "pattern": "UNKNOWN",
+    "status": "REVIEW_COMPLETE",
+    "recommended_actions": [
+      {
+        "action": "CREATE_CASE",
+        "reason": "Case required because investigation evidence or fraud probability meets case criteria.",
+        "route": "auto"
+      }
+    ]
+  }
+}

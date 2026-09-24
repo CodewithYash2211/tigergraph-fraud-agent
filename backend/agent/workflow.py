@@ -6,12 +6,22 @@ from tools.transaction import get_transaction
 from tools.graph import get_connected_entities
 from tools.cases import find_similar_cases
 from tools.policy import evaluate_policy
+from tools.triggers import load_trigger, trigger_response, InvestigationError
+from tools.assessment import assess
+from tools.artifacts import persist_case, now
+import math
 
 
 def load_case(state: InvestigationState):
     print(f"Loading case: {state.get('case_id')}")
 
+    trigger = load_trigger(state.get("case_id"), state.get("flagged_txn_id"))
     return {
+        **trigger,
+        "trigger": trigger,
+        "started_at": now(),
+        "iteration": 0,
+        "pattern": "UNKNOWN",
         "evidence": [],
         "affected_txn_ids": [],
         "connected_card_ids": [],
@@ -24,7 +34,7 @@ def load_case(state: InvestigationState):
         "graph_query_status": "unavailable",
         "graph_query_provenance": {},
 
-        "customer_response": "UNKNOWN",
+        "customer_response": trigger_response(trigger),
 
         "shared_device": False,
         "shared_region": False,
@@ -60,13 +70,33 @@ def investigate(state: InvestigationState):
     txn_id = state.get("flagged_txn_id")
 
     # 1. Transaction evidence
-    transaction = get_transaction(txn_id)
+    transaction = state.get("transaction_record") or get_transaction(txn_id)
+    if not transaction.get("found"):
+        raise InvestigationError("transaction_not_found", "Flagged transaction was not found.", 404)
+    if transaction.get("transaction_id") != txn_id:
+        raise InvestigationError("transaction_mismatch", "Transaction lookup returned a different ID.")
+    try:
+        amount = abs(float(transaction.get("amount")))
+        if not math.isfinite(amount):
+            raise ValueError()
+    except (TypeError, ValueError):
+        raise InvestigationError("invalid_transaction", "Transaction amount is missing or invalid.") from None
 
     # 2. Graph evidence
-    graph = get_connected_entities(txn_id)
+    if state.get("graph_mode") == "offline":
+        graph = {"transaction_id": txn_id, "status": "unavailable", "connected_cards": [],
+                 "connected_devices": [], "related_transactions": [], "graph_findings": [],
+                 "pattern_assessment": {}, "velocity": {}, "fraud_pattern_signals": {},
+                 "query_provenance": {}, "raw_query_results": {},
+                 "reason": "Offline benchmark: TigerGraph was not contacted."}
+    else:
+        graph = get_connected_entities(txn_id)
 
     # 3. Similar historical cases
-    previous_cases = find_similar_cases(txn_id)
+    previous_cases = find_similar_cases(
+        txn_id, customer_id=state.get("customer_id"), card_id=state.get("card_id"),
+        as_of=state.get("opened_at"),
+    )
 
     evidence = [
         {
@@ -83,20 +113,10 @@ def investigate(state: InvestigationState):
         }
     ]
 
-    # Extract basic transaction information
-    customer_id = transaction.get("customer_id")
-
-    amount = 0.0
-
-    try:
-        amount = abs(float(transaction.get("amount", 0.0)))
-    except (TypeError, ValueError):
-        amount = 0.0
-
     return {
         "evidence": evidence,
 
-        "customer_id": customer_id,
+        "customer_id": state.get("customer_id"),
 
         "connected_card_ids": graph.get(
             "connected_cards", []
@@ -128,42 +148,8 @@ def investigate(state: InvestigationState):
 
 
 def assess_risk(state: InvestigationState):
-    print("Assessing risk...")
+    return {**assess(state), "iteration": state.get("iteration", 0) + 1}
 
-    evidence = state.get("evidence", [])
-
-    transaction = {}
-
-    for item in evidence:
-        if item.get("type") == "transaction":
-            transaction = item.get("data", {})
-            break
-
-    try:
-        risk_score = float(
-            transaction.get("risk_score", 0.0)
-        )
-    except (TypeError, ValueError):
-        risk_score = 0.0
-
-    # For now the dataset risk score is used as the
-    # initial probability estimate.
-    #
-    # Later this will be replaced/enriched by:
-    # graph evidence + fraud patterns + historical cases.
-    fraud_probability = risk_score
-
-    if fraud_probability >= 0.70:
-        verdict = "high_risk"
-    elif fraud_probability >= 0.50:
-        verdict = "medium_risk"
-    else:
-        verdict = "uncertain"
-
-    return {
-        "fraud_probability": fraud_probability,
-        "verdict": verdict,
-    }
 
 
 def initial_policy(state: InvestigationState):
@@ -186,9 +172,7 @@ def initial_policy(state: InvestigationState):
             "exposure_usd", 0.0
         ),
 
-        evidence_count=len(
-            state.get("evidence", [])
-        ),
+        evidence_count=state.get("evidence_count", 0),
 
         customer_response=state.get(
             "customer_response", "UNKNOWN"
@@ -255,57 +239,30 @@ def initial_policy(state: InvestigationState):
     }
 
 
+def evidence_route(state: InvestigationState):
+    if state["uncertainty"]["sufficient"] or state["iteration"] >= 2:
+        return "final_policy"
+    if state.get("customer_response") == "UNKNOWN":
+        return "request_evidence"
+    return "final_policy"
+
+
 def request_evidence(state: InvestigationState):
-    print("Checking whether additional evidence is needed...")
-
-    requests = []
-
-    actions = state.get("initial_actions", [])
-
-    action_names = [
-        item.get("action")
-        for item in actions
-    ]
-
-    if "VERIFY_WITH_CUSTOMER" in action_names:
-        requests.append({
-            "action": "VERIFY_WITH_CUSTOMER",
-            "status": "REQUESTED",
-            "assumption": (
-                "No customer response is provided in the benchmark, "
-                "so the response must be simulated."
-            )
-        })
-
-    if "STEP_UP_AUTH" in action_names:
-        requests.append({
-            "action": "STEP_UP_AUTH",
-            "status": "REQUESTED",
-            "assumption": (
-                "No step-up authentication result is provided, "
-                "so the result must be simulated."
-            )
-        })
-
-    return {
-        "evidence_requests": requests
-    }
+    # Verification is a permitted auto-routed evidence request, not a block/decline.
+    request = {"action": "VERIFY_WITH_CUSTOMER", "approval_route": "auto",
+               "status": "REQUESTED", "iteration": state["iteration"],
+               "reason": state["uncertainty"]["reason"]}
+    return {"evidence_requests": [*state.get("evidence_requests", []), request]}
 
 
 def simulate_response(state: InvestigationState):
-    print("Simulating additional evidence response...")
+    # No invented customer denial/confirmation. The deterministic simulation is
+    # explicitly unavailable and cannot satisfy an evidence requirement.
+    requests = [dict(r) for r in state["evidence_requests"]]
+    requests[-1].update(status="SIMULATED_UNAVAILABLE", simulated=True,
+                        response="UNKNOWN", assumption="No real customer interaction is available.")
+    return {"evidence_requests": requests, "customer_response": state.get("customer_response", "UNKNOWN")}
 
-    # The benchmark does not provide customer/analyst responses.
-    # Until we implement case-specific simulation, preserve UNKNOWN.
-    #
-    # This is intentional. We do not invent a customer response.
-
-    return {
-        "customer_response": state.get(
-            "customer_response",
-            "UNKNOWN"
-        )
-    }
 
 
 def final_policy(state: InvestigationState):
@@ -328,9 +285,7 @@ def final_policy(state: InvestigationState):
             "exposure_usd", 0.0
         ),
 
-        evidence_count=len(
-            state.get("evidence", [])
-        ),
+        evidence_count=state.get("evidence_count", 0),
 
         customer_response=state.get(
             "customer_response", "UNKNOWN"
@@ -420,8 +375,17 @@ def final_policy(state: InvestigationState):
         "what_changed": what_changed,
 
         "stop_reason": (
-            "Policy evaluation completed with the "
-            "currently available evidence."
+            "Evidence sufficient for recommendation." if state["uncertainty"]["sufficient"]
+            else "Maximum 2 assessment iterations reached; uncertainty remains." if state["iteration"] >= 2
+            else "No applicable automated evidence request; analyst review remains necessary."
+        ),
+        "case_summary": (
+            f"Case {state['case_id']}: transaction {state['flagged_txn_id']}, "
+            f"risk {state['fraud_probability']:.2f} ({state['verdict']}), pattern {state['pattern']}. "
+            f"Exposure ${state['exposure_usd']:.2f}; related graph volume is not fraud exposure. "
+            f"Graph status {state.get('graph_query_status')}; {state['evidence_count']} evidence signals. "
+            f"{state['uncertainty']['reason']} Recommended actions: {', '.join(final_names)}. "
+            "Actions are recommendations only; SAR outputs are drafts."
         ),
 
         "summary": result.get(
@@ -489,25 +453,20 @@ def build_workflow():
         "initial_policy"
     )
 
-    workflow.add_edge(
-        "initial_policy",
-        "request_evidence"
-    )
+    workflow.add_conditional_edges("initial_policy", evidence_route)
 
     workflow.add_edge(
         "request_evidence",
         "simulate_response"
     )
 
-    workflow.add_edge(
-        "simulate_response",
-        "final_policy"
-    )
+    workflow.add_node("reassess", assess_risk)
+    workflow.add_edge("simulate_response", "reassess")
+    workflow.add_conditional_edges("reassess", evidence_route)
 
-    workflow.add_edge(
-        "final_policy",
-        END
-    )
+    workflow.add_node("persist_case", persist_case)
+    workflow.add_edge("final_policy", "persist_case")
+    workflow.add_edge("persist_case", END)
 
     return workflow.compile()
 

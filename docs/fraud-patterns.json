@@ -1,0 +1,10 @@
+{
+  "version": "hhgoa-mvp-1",
+  "scope": "Conservative project guidance, not an additional policy or calibrated model.",
+  "patterns": [
+    {"name": "CARD_NOT_PRESENT_FRAUD", "requires": ["customer_denial", "online_channel"], "description": "Customer-reported unrecognized online transaction; a supported working hypothesis, not independently confirmed fraud."},
+    {"name": "UNRECOGNIZED_CARD_TRANSACTION", "requires": ["customer_denial"], "description": "Customer reports not making the flagged transaction; the mechanism is unknown."},
+    {"name": "CARD_TESTING", "requires": ["three_small_online_authorizations_within_one_hour", "subsequent_larger_purchase"], "description": "R5 requires the actual ordered timed sequence. Aggregate small/online counts do not establish this pattern; clearing status requires separate evidence."},
+    {"name": "UNKNOWN", "requires": [], "description": "Use when no documented pattern has all required supporting evidence. Historical patterns alone do not classify the current transaction."}
+  ]
+}

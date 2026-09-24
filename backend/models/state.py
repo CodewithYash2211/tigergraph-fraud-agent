@@ -12,6 +12,22 @@ class InvestigationState(TypedDict, total=False):
     flagged_txn_id: str
     card_id: str
     customer_id: str
+    trigger: Dict[str, Any]
+    risk_score: str
+    opened_at: str
+    transaction_record: Dict[str, Any]
+    graph_mode: str
+    started_at: str
+    updated_at: str
+    iteration: int
+    evidence_count: int
+    assessment: Dict[str, Any]
+    uncertainty: Dict[str, Any]
+    case_status: str
+    case_path: str
+    case_output_dir: str
+    grounded_context: Dict[str, Any]
+    graph_persistence: Dict[str, Any]
 
     # ---------------------------------------------------------
     # Investigation evidence
@@ -20,7 +36,7 @@ class InvestigationState(TypedDict, total=False):
     affected_txn_ids: List[str]
     connected_card_ids: List[str]
     connected_device_profiles: List[str]
-    similar_prior_cases: List[str]
+    similar_prior_cases: List[Dict[str, Any]]
     # Graph associations are not automatically confirmed affected transactions.
     related_txn_ids: List[str]
     graph_pattern_assessment: Dict[str, Any]

@@ -3,6 +3,7 @@ import copy
 import io
 import json
 import unittest
+from tests.workspace import output_directory
 from pathlib import Path
 from unittest.mock import patch
 
@@ -20,12 +21,13 @@ CASE = {"case_id": "HHG-001", "flagged_txn_id": "3514030", "card_id": "C12382-K1
 
 class WorkflowTests(unittest.TestCase):
     def invoke(self, query_effect):
-        with patch.dict("os.environ", {
+        with output_directory() as output, patch.dict("os.environ", {
             "TIGERGRAPH_BASE_URL": "https://test.invalid", "TIGERGRAPH_TOKEN": "unit-test-token",
         }, clear=True), patch("tools.tigergraph_client.TigerGraphClient.run_query", side_effect=query_effect), \
                 patch("agent.workflow.get_transaction", return_value=copy.deepcopy(TRANSACTION)), \
+                patch("tools.artifacts.write_graph_case", return_value={"status": "not_attempted", "reason": "Mocked unit test"}), \
                 contextlib.redirect_stdout(io.StringIO()):
-            return fraud_agent.invoke(CASE)
+            return fraud_agent.invoke({**CASE, "case_output_dir": str(output)})
 
     def test_full_workflow_preserves_live_fixture_and_existing_policy_behavior(self):
         result = self.invoke(lambda name, txn: copy.deepcopy(FIXTURE[name]))

@@ -70,27 +70,19 @@ signal is invented. Unrecognized output fields are retained only in raw results.
 
 ## Workflow semantics
 
-The original node sequence and policy implementation are unchanged. Graph
-evidence remains in `evidence`, including its raw results. Normalized sections
-also reach these declared state fields:
+The graph transport, query mappings, and policy rules are unchanged. The MVP
+now loads case triggers, retrieves prior cases, grounds assessment in the collected
+evidence, and uses a bounded evidence step before final policy evaluation.
+See `docs/hhgoa-mvp.md` for current behavior, local/graph persistence, SAR drafts,
+and benchmark commands.
 
-- `graph_pattern_assessment`
-- `graph_velocity`
-- `graph_fraud_pattern_signals`
-- `graph_query_status`
-- `graph_query_provenance`
-- `related_txn_ids`
+Graph outputs remain available in `evidence` and the `graph_*` state fields.
+Related IDs stay in `related_txn_ids`, not confirmed `affected_txn_ids`. Related
+amounts are not substituted for fraud exposure, and aggregate counts alone do
+not establish card testing. Evidence counting now counts source-backed signals.
 
-Related IDs are not put into `affected_txn_ids`: association is not confirmed
-fraud. The CSV transaction amount remains the exposure, and the CSV risk score
-remains the probability estimate. Pattern aggregates do not establish the timed
-R5 card-testing sequence, cleared purchases, or shared fraudulent origins, so
-they do not set those policy flags. `policy.py` and transaction retrieval are
-unchanged, including the existing evidence-container counting behavior.
-
-For `3514030`, the graph's card ID is `21139`, while the case pack's card ID is
-`C12382-K1`. Both are preserved in their respective fields; no equivalence is
-assumed. Relationships returned by the query include 421 transaction IDs.
+For `3514030`, graph card ID `21139` and case-pack card ID `C12382-K1` remain
+separate. No equivalence or graph relationship is invented.
 
 ## Validation
 
@@ -106,7 +98,7 @@ fields, partial/unavailable results, HTTP and application errors, bounded
 timeouts, credential-safe errors, and the compiled LangGraph workflow with
 mocked transaction retrieval and graph query results.
 
-The live validation report is `docs/tigergraph_3514030_validation.json`. It is
+The historical pre-MVP live validation report is `docs/tigergraph_3514030_validation.json`. It was
 generated from a real workflow invocation with the actual CSV case/transaction
 and all four live queries. Credentials are loaded into the invocation's process
 environment only; they are not included in the report or fixture.

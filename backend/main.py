@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from agent.workflow import fraud_agent
+from tools.triggers import InvestigationError
 
 
 app = FastAPI(
@@ -41,8 +42,11 @@ def investigate(request: InvestigationRequest):
             "result": result
         }
 
-    except Exception as exc:
+    except InvestigationError as exc:
+        raise HTTPException(status_code=exc.status_code,
+                            detail={"code": exc.code, "message": str(exc)}) from None
+    except Exception:
         raise HTTPException(
             status_code=500,
-            detail=f"Investigation failed: {str(exc)}"
-        )
+            detail={"code": "investigation_failed", "message": "Investigation could not be completed."}
+        ) from None

@@ -10,3 +10,25 @@ __pycache__/
 .env.*
 !.env.example
 .pytest_cache/
+
+# Generated benchmark case snapshots
+/cases/HHG-001.json
+/cases/HHG-002.json
+/cases/HHG-003.json
+/cases/HHG-004.json
+/cases/HHG-005.json
+/cases/HHG-006.json
+/cases/HHG-007.json
+/cases/HHG-008.json
+/cases/HHG-009.json
+/cases/HHG-010.json
+/cases/HHG-011.json
+/cases/HHG-012.json
+/cases/HHG-013.json
+/cases/HHG-014.json
+/cases/HHG-015.json
+/cases/HHG-016.json
+/cases/HHG-017.json
+/cases/HHG-018.json
+/cases/HHG-019.json
+/cases/HHG-020.json
