@@ -32,3 +32,6 @@ __pycache__/
 /cases/HHG-018.json
 /cases/HHG-019.json
 /cases/HHG-020.json
+
+data/*.csv
+data/*.zip
