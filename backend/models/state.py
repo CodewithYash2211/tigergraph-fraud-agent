@@ -22,6 +22,7 @@ class InvestigationState(TypedDict, total=False):
     iteration: int
     evidence_count: int
     assessment: Dict[str, Any]
+    ml_prediction: Dict[str, Any]  # Shadow-only; never passed to policy/assessment.
     uncertainty: Dict[str, Any]
     case_status: str
     case_path: str

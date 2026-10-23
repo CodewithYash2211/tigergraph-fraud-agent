@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960" role="img" aria-labelledby="title desc">
+<title id="title">Shadow mode: separate signals, unchanged policy</title><desc id="desc">Recorded HHG-001 / transaction 3514030 • not a calibrated probability</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="960" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">Shadow mode: separate signals, unchanged policy</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">Recorded HHG-001 / transaction 3514030 • not a calibrated probability</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<rect x="70" y="175" width="550" height="130" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="345.0" y="232.02" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="middle" fill="#172c43">Existing dataset risk_score</text>
+<text x="345.0" y="267.02" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="middle" fill="#172c43">0.61</text>
+<rect x="810" y="175" width="565" height="170" rx="10" fill="#eef8f6" stroke="#16716b" stroke-width="1.8"/>
+<text x="1092.5" y="221.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">XGBoost fraud_score</text>
+<text x="1092.5" y="252.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">0.9814080596</text>
+<text x="1092.5" y="283.65999999999997" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">threshold = 0.8961541057</text>
+<text x="1092.5" y="314.65999999999997" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">prediction = fraud</text>
+<rect x="70" y="410" width="550" height="115" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="345.0" y="460.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">Existing deterministic assessment</text>
+<text x="345.0" y="492.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">and policy inputs</text>
+<polyline points="345,305 345,410" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="70" y="650" width="550" height="115" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="345.0" y="699.2" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="middle" fill="#172c43">Final action</text>
+<text x="345.0" y="736.2" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="middle" fill="#172c43">CREATE_CASE</text>
+<polyline points="345,525 345,650" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="810" y="485" width="565" height="170" rx="10" fill="#eef8f6" stroke="#16716b" stroke-width="1.8"/>
+<text x="1092.5" y="531.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">Investigation display</text>
+<text x="1092.5" y="562.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">Separate existing and ML score fields</text>
+<text x="1092.5" y="593.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">ML prediction state / local audit</text>
+<text x="1092.5" y="624.66" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">No policy control</text>
+<polyline points="1092,345 1092,485" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<polyline points="620,240 725,240 725,570 810,570" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<polyline points="620,707 725,707 725,625 810,625" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<text x="810" y="740" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#16716b">Dashed arrows: display / audit data</text>
+<text x="810" y="785" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#172c43">Model: xgboost-core-v1-seed42</text>
+<polyline points="55,840 1385,840" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="864" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">ML prediction is an additional investigation signal and does not independently determine the final policy action.</text>
+<text x="55" y="891" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">No ML → policy arrow. A classifier prediction is not an adjudication or an executed banking action.</text>
+<text x="55" y="938" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: cases/HHG-001.json; backend/tools/ml.py; agent/workflow.py; tests/test_shadow_integration.py</text>
+</svg>

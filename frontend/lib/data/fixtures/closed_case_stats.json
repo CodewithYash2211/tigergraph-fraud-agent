@@ -1,0 +1,17 @@
+{
+ "total": 5565,
+ "by_outcome": {
+  "confirmed_fraud": 4665,
+  "cleared": 900
+ },
+ "by_pattern": {
+  "card_not_present_fraud": 1404,
+  "account_takeover": 1205,
+  "card_not_present_new_device": 1076,
+  "out_of_region_use": 955,
+  "none": 900,
+  "card_testing": 16,
+  "undocumented": 9
+ },
+ "identity_records": 144432
+}

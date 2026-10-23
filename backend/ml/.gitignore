@@ -1,0 +1,6 @@
+# Local generated experiment data; no automatic binary/prediction publication.
+results/
+artifacts/
+*.joblib
+*.pkl
+*.ubj

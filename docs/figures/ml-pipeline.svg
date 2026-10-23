@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1050" viewBox="0 0 1440 1050" role="img" aria-labelledby="title desc">
+<title id="title">Leakage-safe ML pipeline</title><desc id="desc">Fixed temporal protocol; no new training or evaluation was run to create this figure</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="1050" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">Leakage-safe ML pipeline</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">Fixed temporal protocol; no new training or evaluation was run to create this figure</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<rect x="290" y="145" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="170.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Raw transactions + history</text>
+<text x="835.0" y="197.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Identity snapshot joined by transaction ID</text>
+<text x="230" y="184" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">01</text>
+<polyline points="835,210 835,232" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="232" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="257.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Historical label extraction</text>
+<text x="835.0" y="284.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">confirmed_fraud = 1; cleared = 0; others excluded</text>
+<text x="230" y="271" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">02</text>
+<polyline points="835,297 835,319" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="319" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="344.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Temporal split + safeguards</text>
+<text x="835.0" y="371.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Jul–Aug train; Sep validation; Oct test</text>
+<text x="230" y="358" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">03</text>
+<polyline points="835,384 835,406" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="406" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="431.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Train-only preprocessing</text>
+<text x="835.0" y="458.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">25 inputs → 245 transformed features</text>
+<text x="230" y="445" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">04</text>
+<polyline points="835,471 835,493" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="493" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="518.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Model training</text>
+<text x="835.0" y="545.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Same training partition; fixed configurations</text>
+<text x="230" y="532" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">05</text>
+<polyline points="835,558 835,580" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="580" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="605.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">September validation</text>
+<text x="835.0" y="632.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Per-model threshold selection by balanced accuracy</text>
+<text x="230" y="619" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">06</text>
+<polyline points="835,645 835,667" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="667" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="692.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Model selection and freeze</text>
+<text x="835.0" y="719.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Balanced accuracy; AP tie-breaker → XGBoost</text>
+<text x="230" y="706" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">07</text>
+<polyline points="835,732 835,754" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="754" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="779.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Frozen October test</text>
+<text x="835.0" y="806.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Evaluate winner once; no tuning or refitting</text>
+<text x="230" y="793" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">08</text>
+<polyline points="835,819 835,841" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="290" y="841" width="1090" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="835.0" y="866.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Versioned artifact export</text>
+<text x="835.0" y="893.8" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Later authorized reconstruction; no October re-evaluation</text>
+<text x="230" y="880" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24558a">09</text>
+<polyline points="55,930 1385,930" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="954" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Training/validation/test rows remain fixed: 6,371 / 2,836 / 3,207.</text>
+<text x="55" y="981" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Export checks frozen training/validation hashes and reproduces saved September scores.</text>
+<text x="55" y="1028" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: ml/dataset.py; splits.py; preprocessing.py; training.py; evaluation.py; train.py; export.py</text>
+</svg>

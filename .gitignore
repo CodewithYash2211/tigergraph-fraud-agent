@@ -35,3 +35,25 @@ __pycache__/
 
 data/*.csv
 data/*.zip
+
+# Frontend dependencies and build output
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Local environment files and credentials
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+backend/env.txt
+
+# Generated Python files
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/

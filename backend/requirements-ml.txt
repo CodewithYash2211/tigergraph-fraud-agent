@@ -1,0 +1,6 @@
+# Phase 1 and Phase 2 --audit-only remain standard-library-only.
+# Optional isolated ML environment; never install automatically in backend runtime.
+# Transformation metadata records exact resolved versions. No models are trained.
+numpy>=1.26,<3
+scipy>=1.11,<2
+scikit-learn>=1.6,<2

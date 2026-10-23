@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+<title id="title">October XGBoost confusion matrix</title><desc id="desc">Final frozen test evaluation • 3,207 transactions • fraud is the positive class</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="1000" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">October XGBoost confusion matrix</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">Final frozen test evaluation • 3,207 transactions • fraud is the positive class</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="675" y="180" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#172c43">PREDICTED CLASS</text>
+<text x="495" y="235" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">Cleared</text>
+<text x="855" y="235" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">Fraud</text>
+<text x="200" y="380" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Actual Cleared</text>
+<text x="200" y="610" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Actual Fraud</text>
+<rect x="320" y="265" width="360" height="230" fill="#d9e9f5" stroke="white" stroke-width="4"/>
+<text x="500" y="349" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">TN</text>
+<text x="500" y="420" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="#172c43">120</text>
+<rect x="680" y="265" width="360" height="230" fill="#fff1df" stroke="white" stroke-width="4"/>
+<text x="860" y="349" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">FP</text>
+<text x="860" y="420" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="#172c43">22</text>
+<rect x="320" y="495" width="360" height="230" fill="#f5dcca" stroke="white" stroke-width="4"/>
+<text x="500" y="579" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="#172c43">FN</text>
+<text x="500" y="650" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="#172c43">431</text>
+<rect x="680" y="495" width="360" height="230" fill="#24558a" stroke="white" stroke-width="4"/>
+<text x="860" y="579" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="middle" fill="white">TP</text>
+<text x="860" y="650" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="white">2,634</text>
+<text x="1080" y="325" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#172c43">TN: correctly cleared</text>
+<text x="1080" y="352" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#172c43">FP: cleared, flagged</text>
+<text x="1080" y="379" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#172c43">FN: fraud, missed</text>
+<text x="1080" y="406" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#172c43">TP: fraud, detected</text>
+<text x="320" y="792" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" text-anchor="start" fill="#172c43">Frozen threshold: 0.8961541056632996</text>
+<text x="320" y="838" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#172c43">Actual classes: 142 cleared / 3,065 fraud (95.57%)</text>
+<polyline points="55,880 1385,880" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="904" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">The threshold was selected on September and frozen before October evaluation.</text>
+<text x="55" y="931" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Results describe the selected historical investigation sample, not population-wide performance.</text>
+<text x="55" y="978" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: backend/ml/results/test_metrics.json; selection.json</text>
+</svg>

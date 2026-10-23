@@ -9,6 +9,8 @@ from tools.policy import evaluate_policy
 from tools.triggers import load_trigger, trigger_response, InvestigationError
 from tools.assessment import assess
 from tools.artifacts import persist_case, now
+from tools.ml import score_transaction
+from ml.shadow import unavailable as ml_unavailable
 import math
 
 
@@ -113,8 +115,15 @@ def investigate(state: InvestigationState):
         }
     ]
 
+    # Separate shadow field, deliberately excluded from evidence counting/grounding.
+    try:
+        ml_prediction = score_transaction(transaction)
+    except Exception:
+        ml_prediction = ml_unavailable("inference_failed")
+
     return {
         "evidence": evidence,
+        "ml_prediction": ml_prediction,
 
         "customer_id": state.get("customer_id"),
 

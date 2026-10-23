@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1030" viewBox="0 0 1440 1030" role="img" aria-labelledby="title desc">
+<title id="title">TigerGraph: verified concepts and relationships</title><desc id="desc">HHGOA_Fraud • SDK runInstalledQuery • schematic, not a full schema export</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="1030" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">TigerGraph: verified concepts and relationships</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">HHGOA_Fraud • SDK runInstalledQuery • schematic, not a full schema export</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="165" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#24558a">NAMED RELATIONSHIPS VERIFIED IN CAPTURED SCHEMA</text>
+<rect x="70" y="270" width="285" height="115" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="212.5" y="334.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">ClosedCase</text>
+<rect x="1020" y="205" width="330" height="90" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1185.0" y="257.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Transaction</text>
+<rect x="1020" y="385" width="330" height="90" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1185.0" y="437.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Card</text>
+<polyline points="355,295 620,295 620,250 1020,250" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="650" y="235" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#24558a">INVOLVES</text>
+<polyline points="355,330 680,330 680,411 1020,411" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="720" y="395" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#24558a">ON_CARD</text>
+<polyline points="355,355 620,355 620,451 1020,451" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="670" y="482" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">CONNECTED_TO (schema only)</text>
+<text x="70" y="437" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Undirected edges; no arrowheads.</text>
+<text x="70" y="470" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Persistence uses verified INVOLVES / ON_CARD targets.</text>
+<text x="55" y="545" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#24558a">OTHER OBSERVED CONCEPTS — EDGE TYPES NOT ASSERTED</text>
+<rect x="65" y="575" width="290" height="75" rx="10" fill="#f7f9fb" stroke="#8798a9" stroke-width="1.8"/>
+<text x="210.0" y="619.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Customer</text>
+<rect x="405" y="575" width="290" height="75" rx="10" fill="#f7f9fb" stroke="#8798a9" stroke-width="1.8"/>
+<text x="550.0" y="619.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">DeviceProfile</text>
+<rect x="745" y="575" width="290" height="75" rx="10" fill="#f7f9fb" stroke="#8798a9" stroke-width="1.8"/>
+<text x="890.0" y="619.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">EmailDomain</text>
+<rect x="1085" y="575" width="290" height="75" rx="10" fill="#f7f9fb" stroke="#8798a9" stroke-width="1.8"/>
+<text x="1230.0" y="619.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">BillingRegion</text>
+<text x="55" y="710" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#24558a">FOUR EXISTING INSTALLED QUERIES</text>
+<rect x="65" y="740" width="625" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="377.5" y="780.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">investigate_transaction</text>
+<rect x="750" y="740" width="625" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1062.5" y="780.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">risk_pattern_summary</text>
+<rect x="65" y="830" width="625" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="377.5" y="870.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">detect_fraud_patterns</text>
+<rect x="750" y="830" width="625" height="65" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1062.5" y="870.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">transaction_velocity</text>
+<polyline points="55,910 1385,910" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="934" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">No Customer/Card/Device/Email/Region edges have been invented from output names.</text>
+<text x="55" y="961" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">MCP is an integration boundary only; the implemented transport is pyTigerGraph.</text>
+<text x="55" y="1008" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: tests/fixtures/closedcase_schema.json; tools/graph.py; graph_persistence.py; docs/tigergraph-integration.md</text>
+</svg>

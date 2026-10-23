@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+out/
+tsconfig.tsbuildinfo
+
+# Dataset
+data/*.csv
+data/*.zip
+
+# IDE
+.vscode/

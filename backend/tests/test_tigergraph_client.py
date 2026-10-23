@@ -72,6 +72,39 @@ class ClientTests(unittest.TestCase):
         self.assertFalse(kwargs["allow_redirects"])
         self.assertTrue(self.client._connection._session.verify)
 
+    def test_read_only_edge_lookup_uses_verified_sdk_signature_and_limit(self):
+        record = {"e_type": "MADE", "directed": False, "from_id": "3558054", "from_type": "Transaction",
+                  "to_id": "10114", "to_type": "Card", "attributes": {}}
+        self.http.return_value = response({"error": False, "results": [record]})
+        self.assertEqual(self.client.get_edges("Transaction", "3558054", "MADE", limit=5), [record])
+        args, kwargs = self.http.call_args
+        self.assertEqual(args[0], "GET")
+        self.assertIn("/restpp/graph/HHGOA_Fraud/edges/Transaction/3558054", args[1])
+        self.assertTrue(args[1].endswith("/edges/Transaction/3558054/MADE?limit=5&timeout=7"))
+        self.assertIn("limit=5", args[1])
+        self.assertIn("timeout=7", args[1])
+        self.assertEqual(kwargs["timeout"], 7)
+        self.assertEqual(len(self.client.get_edges("Transaction", "3558054", "MADE", limit=5)), 1)
+
+    def test_edge_lookup_rejects_unverified_types_and_unsafe_limits_without_http(self):
+        for source_type, source_id, edge_type, limit in (
+            ("ClosedCase", "HHG-008", "INVOLVES", 5),
+            ("Transaction", "3558054", "INVOLVES", 5),
+            ("Transaction", "", "MADE", 5),
+            ("Transaction", "3558054", "MADE", 202),
+        ):
+            with self.subTest(source_type=source_type, edge_type=edge_type), self.assertRaises(TigerGraphClientError):
+                self.client.get_edges(source_type, source_id, edge_type, limit=limit)
+        self.http.assert_not_called()
+
+    def test_edge_lookup_sanitizes_permission_and_application_failures(self):
+        self.http.return_value = response(status=403, body="permission denied secret-bearing-body")
+        with self.assertRaises(TigerGraphClientError) as caught:
+            self.client.get_edges("Transaction", "3558054", "MADE", limit=5)
+        self.assertEqual(caught.exception.kind, "http")
+        self.assertIn("403", str(caught.exception))
+        self.assertNotIn("secret-bearing", str(caught.exception))
+
     def test_reuses_and_closes_connection(self):
         self.client.run_query("transaction_velocity", "3514030")
         connection = self.client._connection
@@ -125,6 +158,14 @@ class ClientTests(unittest.TestCase):
             self.client.run_query("transaction_velocity", "3514030")
         self.assertEqual(caught.exception.kind, "application")
         self.assertEqual(caught.exception.code, "REST-1000")
+        self.assertNotIn("secret-bearing", str(caught.exception))
+
+    def test_stopped_workspace_reports_action_without_echoing_body(self):
+        self.http.return_value = response(status=500, body="Auto start is not enabled for this workspace secret-bearing-error-body")
+        with self.assertRaises(TigerGraphClientError) as caught:
+            self.client.run_query("transaction_velocity", "3514030")
+        self.assertEqual(caught.exception.kind, "workspace")
+        self.assertIn("Resume", str(caught.exception))
         self.assertNotIn("secret-bearing", str(caught.exception))
 
     def test_invalid_json_and_envelopes(self):

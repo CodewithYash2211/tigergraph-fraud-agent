@@ -1,0 +1,34 @@
+{
+  "investigate_transaction": {
+    "success": false,
+    "error": {
+      "kind": "workspace",
+      "message": "TigerGraph workspace is stopped and auto-start is disabled. Resume the configured workspace and wait for Running/Ready.",
+      "code": "500"
+    }
+  },
+  "risk_pattern_summary": {
+    "success": false,
+    "error": {
+      "kind": "workspace",
+      "message": "TigerGraph workspace is stopped and auto-start is disabled. Resume the configured workspace and wait for Running/Ready.",
+      "code": "500"
+    }
+  },
+  "detect_fraud_patterns": {
+    "success": false,
+    "error": {
+      "kind": "workspace",
+      "message": "TigerGraph workspace is stopped and auto-start is disabled. Resume the configured workspace and wait for Running/Ready.",
+      "code": "500"
+    }
+  },
+  "transaction_velocity": {
+    "success": false,
+    "error": {
+      "kind": "workspace",
+      "message": "TigerGraph workspace is stopped and auto-start is disabled. Resume the configured workspace and wait for Running/Ready.",
+      "code": "500"
+    }
+  }
+}

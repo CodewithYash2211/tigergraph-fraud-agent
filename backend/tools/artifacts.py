@@ -56,6 +56,7 @@ def persist_case(state):
         created_at = json.loads(path.read_text(encoding="utf-8")).get("created_at", created_at)
     updated_at = now()
     record = {"case_id": case_id, "trigger": state["trigger"],
+              "ml_prediction": state.get("ml_prediction"),
               "transaction": evidence["transaction"], "graph_evidence": evidence["graph"],
               "historical_evidence": evidence["historical_cases"], "assessment": state["assessment"],
               "grounded_context": state["grounded_context"], "verdict": state["verdict"],

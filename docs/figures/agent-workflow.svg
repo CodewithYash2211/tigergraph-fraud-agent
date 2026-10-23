@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1100" viewBox="0 0 1440 1100" role="img" aria-labelledby="title desc">
+<title id="title">Bounded agent investigation workflow</title><desc id="desc">Deterministic tool orchestration; maximum two assessment iterations</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="1100" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">Bounded agent investigation workflow</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">Deterministic tool orchestration; maximum two assessment iterations</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<rect x="65" y="150" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="189.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Load case</text>
+<polyline points="420,214 420,245" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="245" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="284.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Validate transaction</text>
+<polyline points="420,309 420,340" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="340" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="379.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Gather transaction / graph / historical evidence</text>
+<polyline points="420,404 420,435" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="435" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="474.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Call shadow ML; store separate ml_prediction</text>
+<polyline points="420,499 420,530" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="530" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="569.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Assess — iteration 1</text>
+<polyline points="420,594 420,625" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="625" width="710" height="64" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="664.14" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#172c43">Initial policy</text>
+<rect x="890" y="435" width="470" height="90" rx="10" fill="#eef8f6" stroke="#16716b" stroke-width="1.8"/>
+<text x="1125.0" y="472.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Shadow state / UI / local audit</text>
+<text x="1125.0" y="501.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Score excluded from policy inputs</text>
+<polyline points="775,467 890,467" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<rect x="65" y="730" width="710" height="80" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="420.0" y="763.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Evidence sufficient?</text>
+<text x="420.0" y="790.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Or iteration limit reached / no applicable request?</text>
+<polyline points="420,689 420,730" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="65" y="855" width="300" height="80" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="215.0" y="902.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Final policy</text>
+<polyline points="210,810 210,855" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<text x="235" y="840" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#172c43">Yes / stop</text>
+<rect x="455" y="855" width="320" height="80" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="615.0" y="887.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Persistence</text>
+<text x="615.0" y="916.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Local JSON + ClosedCase</text>
+<polyline points="365,895 455,895" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="900" y="585" width="460" height="76" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1130.0" y="616.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Evidence request</text>
+<text x="1130.0" y="643.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">If insufficient + verification applicable</text>
+<polyline points="775,770 850,770 850,623 900,623" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<text x="800" y="735" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#172c43">No</text>
+<rect x="900" y="715" width="460" height="76" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1130.0" y="746.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">SIMULATED_UNAVAILABLE</text>
+<text x="1130.0" y="773.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">simulated=true; response=UNKNOWN</text>
+<polyline points="1130,661 1130,715" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="900" y="855" width="460" height="80" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1130.0" y="888.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Reassessment — iteration 2</text>
+<text x="1130.0" y="915.3" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">Limit reached → final policy</text>
+<polyline points="1130,791 1130,855" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<polyline points="1130,935 1130,970 210,970 210,935" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<polyline points="55,980 1385,980" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="1004" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">No actual customer response is generated. Initial/final recommendations and stopping reason are preserved.</text>
+<text x="55" y="1031" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">The shadow call is a workflow step; its score is not passed into assessment or policy.</text>
+<text x="55" y="1078" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: backend/agent/workflow.py: investigate, evidence_route, simulate_response, build_workflow</text>
+</svg>

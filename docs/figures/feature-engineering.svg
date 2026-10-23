@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="940" viewBox="0 0 1440 940" role="img" aria-labelledby="title desc">
+<title id="title">Core feature engineering</title><desc id="desc">core-v1 • Fixed feature allowlist • Training-fitted transformations only</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="940" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">Core feature engineering</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">core-v1 • Fixed feature allowlist • Training-fitted transformations only</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<rect x="65" y="170" width="440" height="130" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="285.0" y="227.82" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">19 core variables</text>
+<text x="285.0" y="257.82" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">5 numeric / time + 14 categorical</text>
+<text x="560" y="245" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="400" text-anchor="middle" fill="#172c43">+</text>
+<rect x="615" y="170" width="330" height="130" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="780.0" y="227.5" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">6 missingness</text>
+<text x="780.0" y="259.5" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">indicators</text>
+<text x="1000" y="245" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="400" text-anchor="middle" fill="#172c43">=</text>
+<rect x="1060" y="170" width="315" height="130" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1217.5" y="244.86" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="middle" fill="#172c43">25 raw inputs</text>
+<rect x="65" y="385" width="780" height="225" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="455.0" y="460.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Preprocessing fitted on training data</text>
+<text x="455.0" y="490.32" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Numeric: median imputation + scaling</text>
+<text x="455.0" y="520.3199999999999" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Categorical: bounded rare-category encoding</text>
+<text x="455.0" y="550.3199999999999" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#172c43">Unknown-safe handling; missingness retained</text>
+<polyline points="1217,300 1217,340 455,340 455,385" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<rect x="1000" y="415" width="375" height="150" rx="10" fill="#eef8f6" stroke="#16716b" stroke-width="1.8"/>
+<text x="1187.5" y="466.5" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">245 transformed</text>
+<text x="1187.5" y="498.5" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">features</text>
+<text x="1187.5" y="530.5" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="middle" fill="#172c43">Float CSR matrices</text>
+<polyline points="845,495 1000,495" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  marker-end="url(#arrow)"/>
+<text x="65" y="675" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Train: 6,371 × 245     Validation: 2,836 × 245     Test: 3,207 × 245</text>
+<text x="65" y="705" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Validation and test use transform only; they never fit preprocessing.</text>
+<text x="65" y="735" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Excluded: risk_score, outcomes, closure metadata, raw IDs and graph-derived ML features.</text>
+<polyline points="55,820 1385,820" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="844" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">DeviceType / DeviceInfo are included; anonymous id_* fields are excluded without documented availability.</text>
+<text x="55" y="871" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">245 denotes encoded outputs, not independent raw measurements. Snapshot availability remains an assumption.</text>
+<text x="55" y="918" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: backend/ml/features.py; preprocessing.py; results/configuration.json</text>
+</svg>

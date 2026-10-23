@@ -18,6 +18,15 @@ INSTALLED_QUERIES = (
     "transaction_velocity",
 )
 
+# Edge names and vertex paths verified against the installed investigation query
+# and the live HHGOA_Fraud schema. Keep this read-only allowlist intentionally
+# narrow: it excludes unrelated edges such as Transaction-ClosedCase INVOLVES.
+EDGE_LOOKUP_TYPES = {
+    "Transaction": frozenset({"MADE", "FROM_DEVICE", "PURCHASER_EMAIL", "BILLED_IN"}),
+    "Card": frozenset({"MADE", "OWNS"}),
+}
+MAX_EDGE_LOOKUP_LIMIT = 201  # 200 output edges plus one truncation probe.
+
 
 class TigerGraphClientError(RuntimeError):
     def __init__(self, kind: str, message: str, code: str | None = None):
@@ -95,28 +104,42 @@ class TigerGraphClient:
                 query_name, params={"txn_id": txn_id},
                 timeout=max(1, int(self.settings.timeout * 1000)), usePost=False,
             )
-        except requests.Timeout:
-            raise TigerGraphClientError("timeout", "TigerGraph request timed out.") from None
-        except requests.HTTPError as exc:
-            status = exc.response.status_code if exc.response is not None else None
-            raise TigerGraphClientError(
-                "http", f"TigerGraph HTTP request failed (status {status}).",
-                str(status) if status is not None else None,
-            ) from None
-        except requests.RequestException:
-            raise TigerGraphClientError("network", "Unable to reach TigerGraph.") from None
-        except TigerGraphException as exc:
-            # Server messages/SDK exceptions can echo secrets; do not copy them.
-            code = str(exc.code) if exc.code is not None else None
-            if code is not None and not re.fullmatch(r"(?:REST|GSQL|E)-[0-9]+", code):
-                code = None
-            raise TigerGraphClientError(
-                "application", "TigerGraph rejected the request or returned invalid JSON.", code,
-            ) from None
+        except (requests.Timeout, requests.HTTPError, requests.RequestException, TigerGraphException) as exc:
+            raise _sanitize_sdk_error(exc) from None
         except (ValueError, KeyError, TypeError):
             raise TigerGraphClientError("response_shape", "TigerGraph returned an invalid response envelope.") from None
         if not isinstance(result, list) or not all(isinstance(item, dict) for item in result):
             raise TigerGraphClientError("response_shape", "TigerGraph query results must be a list of objects.")
+        return result
+
+    def get_edges(self, source_vertex_type: str, source_vertex_id: str, edge_type: str, *, limit: int) -> list[dict]:
+        """Read incident edges using the verified pyTigerGraph getEdges API.
+
+        The SDK returns the REST++ ``results`` array. The SDK's timeout argument
+        is seconds; the client's HTTP adapter independently enforces the same
+        configured network timeout.
+        """
+        if source_vertex_type not in EDGE_LOOKUP_TYPES or edge_type not in EDGE_LOOKUP_TYPES[source_vertex_type]:
+            raise TigerGraphClientError("input", "Edge lookup is not an approved investigation relationship.")
+        if not isinstance(source_vertex_id, str) or not source_vertex_id.strip():
+            raise TigerGraphClientError("input", "source vertex ID must be a nonempty string.")
+        if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= MAX_EDGE_LOOKUP_LIMIT:
+            raise TigerGraphClientError("input", "Edge lookup limit is outside the supported range.")
+        try:
+            result = self._connect().getEdges(
+                sourceVertexType=source_vertex_type,
+                sourceVertexId=source_vertex_id,
+                edgeType=edge_type,
+                limit=limit,
+                fmt="py",
+                timeout=max(1, int(self.settings.timeout)),
+            )
+        except (requests.Timeout, requests.HTTPError, requests.RequestException, TigerGraphException) as exc:
+            raise _sanitize_sdk_error(exc) from None
+        except (ValueError, KeyError, TypeError):
+            raise TigerGraphClientError("response_shape", "TigerGraph returned an invalid edge response.") from None
+        if not isinstance(result, list) or not all(isinstance(item, dict) for item in result):
+            raise TigerGraphClientError("response_shape", "TigerGraph edge results must be a list of objects.")
         return result
 
     def close(self):
@@ -129,3 +152,28 @@ class TigerGraphClient:
 
     def __exit__(self, *_):
         self.close()
+
+
+def _sanitize_sdk_error(exc: Exception) -> TigerGraphClientError:
+    if isinstance(exc, requests.Timeout):
+        return TigerGraphClientError("timeout", "TigerGraph request timed out.")
+    if isinstance(exc, requests.HTTPError):
+        status = exc.response.status_code if exc.response is not None else None
+        body = exc.response.text if exc.response is not None else ""
+        if status == 500 and "Auto start is not enabled for this workspace" in body:
+            return TigerGraphClientError(
+                "workspace", "TigerGraph workspace is stopped and auto-start is disabled. Resume the configured workspace and wait for Running/Ready.", "500",
+            )
+        return TigerGraphClientError(
+            "http", f"TigerGraph HTTP request failed (status {status}).",
+            str(status) if status is not None else None,
+        )
+    if isinstance(exc, requests.RequestException):
+        return TigerGraphClientError("network", "Unable to reach TigerGraph.")
+    # SDK/server messages may echo authentication data; only pass a constrained code.
+    code = str(exc.code) if isinstance(exc, TigerGraphException) and exc.code is not None else None
+    if code is not None and not re.fullmatch(r"(?:REST|GSQL|E)-[0-9]+", code):
+        code = None
+    return TigerGraphClientError(
+        "application", "TigerGraph rejected the request or returned invalid JSON.", code,
+    )

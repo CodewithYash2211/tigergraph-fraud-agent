@@ -5,11 +5,23 @@ kept verbatim; absent fields never become zeros or invented fraud signals.
 """
 
 import math
+import json
 from datetime import datetime, timezone
 from typing import Any
 
 from config.tigergraph import TigerGraphConfigError
 from tools.tigergraph_client import INSTALLED_QUERIES, TigerGraphClient, TigerGraphClientError
+
+
+MAX_VISUALIZATION_EDGES = 200
+EDGE_SOURCE = "pyTigerGraph.getEdges"
+EDGE_ENDPOINT_PAIRS = {
+    "MADE": frozenset({frozenset({"Card", "Transaction"})}),
+    "OWNS": frozenset({frozenset({"Card", "Customer"})}),
+    "FROM_DEVICE": frozenset({frozenset({"Transaction", "DeviceProfile"})}),
+    "PURCHASER_EMAIL": frozenset({frozenset({"Transaction", "EmailDomain"})}),
+    "BILLED_IN": frozenset({frozenset({"Transaction", "BillingRegion"})}),
+}
 
 
 RELATIONSHIPS = {
@@ -88,6 +100,138 @@ def _now():
     return datetime.now(timezone.utc).isoformat()
 
 
+def _empty_edge_metadata(status="unavailable", error=None):
+    return {
+        "limit": MAX_VISUALIZATION_EDGES,
+        "returned": 0,
+        "truncated": False,
+        "status": status,
+        "source": EDGE_SOURCE,
+        "error": error,
+        "invalid_records": 0,
+    }
+
+
+def _normalize_edge(record):
+    """Validate one SDK edge record without changing its actual endpoints/direction."""
+    if not isinstance(record, dict):
+        return None
+    required = ("e_type", "from_type", "from_id", "to_type", "to_id")
+    if any(not isinstance(record.get(key), str) or not record[key].strip() for key in required):
+        return None
+    if not isinstance(record.get("directed"), bool):
+        return None
+    attributes = record.get("attributes", {})
+    if not isinstance(attributes, dict):
+        return None
+    # Ensure attributes can safely be retained and used as part of exact identity.
+    try:
+        canonical_attributes = json.dumps(attributes, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    except (TypeError, ValueError):
+        return None
+    return {
+        "e_type": record["e_type"],
+        "directed": record["directed"],
+        "from_id": record["from_id"],
+        "from_type": record["from_type"],
+        "to_id": record["to_id"],
+        "to_type": record["to_type"],
+        "attributes": attributes,
+    }, canonical_attributes
+
+
+def _retrieve_visualization_edges(txn_id, graph, client):
+    """Fetch only real query-supported edges, with one global unique-edge cap."""
+    metadata = _empty_edge_metadata(status="complete")
+    provenance = graph.get("query_provenance", {}).get("investigate_transaction", {})
+    if provenance.get("status") != "complete":
+        metadata["status"] = "unavailable"
+        metadata["error"] = "The relationship ID query did not complete; edge retrieval was not attempted."
+        return [], metadata
+
+    related_ids = set(graph.get("related_transactions", []))
+    entity_ids = {
+        "Transaction": {txn_id, *related_ids},
+        "Card": set(graph.get("connected_cards", [])),
+        "Customer": set(graph.get("connected_customers", [])),
+        "DeviceProfile": set(graph.get("connected_devices", [])),
+        "EmailDomain": set(graph.get("connected_emails", [])),
+        "BillingRegion": set(graph.get("connected_regions", [])),
+    }
+
+    lookups = []
+    for edge_type in ("MADE", "FROM_DEVICE", "PURCHASER_EMAIL", "BILLED_IN"):
+        lookups.append(("Transaction", txn_id, edge_type))
+    for card_id in sorted(entity_ids["Card"]):
+        lookups.extend((("Card", card_id, "MADE"), ("Card", card_id, "OWNS")))
+
+    exact_edges = {}
+    successful_lookups = 0
+    failed_lookups = 0
+    first_error = None
+    for source_type, source_id, requested_type in lookups:
+        # One extra result is a probe to distinguish a full visualization from a
+        # response where the global budget actually omitted a unique edge.
+        request_limit = MAX_VISUALIZATION_EDGES - len(exact_edges) + 1
+        try:
+            records = client.get_edges(source_type, source_id, requested_type, limit=request_limit)
+            successful_lookups += 1
+        except TigerGraphClientError as exc:
+            failed_lookups += 1
+            first_error = first_error or str(exc)
+            continue
+        except Exception:
+            failed_lookups += 1
+            first_error = first_error or "TigerGraph edge retrieval failed."
+            continue
+
+        for record in records:
+            parsed = _normalize_edge(record)
+            if parsed is None:
+                metadata["invalid_records"] += 1
+                continue
+            edge, canonical_attributes = parsed
+            allowed_pairs = EDGE_ENDPOINT_PAIRS.get(edge["e_type"])
+            endpoint_pair = frozenset((edge["from_type"], edge["to_type"]))
+            # The read-only endpoint can include other schema edges; accept only
+            # exact paths from investigate_transaction and IDs returned by it.
+            if (
+                edge["e_type"] != requested_type
+                or allowed_pairs is None or endpoint_pair not in allowed_pairs
+                or edge["from_id"] not in entity_ids.get(edge["from_type"], set())
+                or edge["to_id"] not in entity_ids.get(edge["to_type"], set())
+                or (source_type, source_id) not in {
+                    (edge["from_type"], edge["from_id"]),
+                    (edge["to_type"], edge["to_id"]),
+                }
+            ):
+                continue
+            identity = (
+                edge["e_type"], edge["directed"], edge["from_type"], edge["from_id"],
+                edge["to_type"], edge["to_id"], canonical_attributes,
+            )
+            if identity in exact_edges:
+                continue
+            if len(exact_edges) >= MAX_VISUALIZATION_EDGES:
+                metadata["truncated"] = True
+                break
+            exact_edges[identity] = edge
+        if metadata["truncated"]:
+            break
+
+    metadata["returned"] = len(exact_edges)
+    if metadata["invalid_records"]:
+        metadata["status"] = "partial"
+        first_error = first_error or "Some TigerGraph edge records had invalid endpoint data and were omitted."
+    if failed_lookups:
+        metadata["status"] = "partial" if successful_lookups else "failed"
+        first_error = first_error or "TigerGraph edge retrieval failed."
+    if metadata["truncated"]:
+        metadata["status"] = "partial"
+    metadata["error"] = first_error
+    return list(exact_edges.values()), metadata
+
+
 def get_connected_entities(txn_id: str, *, client: TigerGraphClient | None = None) -> dict[str, Any]:
     evidence = {
         "transaction_id": txn_id,
@@ -99,6 +243,8 @@ def get_connected_entities(txn_id: str, *, client: TigerGraphClient | None = Non
         "query_provenance": {},
         "raw_query_results": {},
         "status": "unavailable",
+        "graph_edges": [],
+        "edge_metadata": _empty_edge_metadata(),
     }
     owns_client = client is None
     try:
@@ -106,6 +252,7 @@ def get_connected_entities(txn_id: str, *, client: TigerGraphClient | None = Non
             client = TigerGraphClient()
     except TigerGraphConfigError as exc:
         evidence["configuration_error"] = str(exc)
+        evidence["edge_metadata"] = _empty_edge_metadata(status="unavailable", error="TigerGraph configuration is unavailable.")
         for query in INSTALLED_QUERIES:
             evidence["query_provenance"][query] = {
                 "query": query, "transaction_id": txn_id, "status": "not_run",
@@ -140,11 +287,12 @@ def get_connected_entities(txn_id: str, *, client: TigerGraphClient | None = Non
                 provenance["error"] = exc.as_dict()
             finally:
                 provenance["completed_at"] = _now()
+        evidence["status"] = (
+            "complete" if succeeded == len(INSTALLED_QUERIES)
+            else "partial" if succeeded else "unavailable"
+        )
+        evidence["graph_edges"], evidence["edge_metadata"] = _retrieve_visualization_edges(txn_id, evidence, client)
     finally:
         if owns_client:
             client.close()
-    evidence["status"] = (
-        "complete" if succeeded == len(INSTALLED_QUERIES)
-        else "partial" if succeeded else "unavailable"
-    )
     return evidence

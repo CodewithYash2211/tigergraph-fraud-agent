@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+<title id="title">Temporal split and label maturity</title><desc id="desc">Half-open transaction windows: start included, end excluded</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#52657a"/></marker></defs>
+<rect width="1440" height="900" fill="white"/>
+<text x="55" y="57" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" text-anchor="start" fill="#172c43">Temporal split and label maturity</text>
+<text x="55" y="94" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#52657a">Half-open transaction windows: start included, end excluded</text>
+<polyline points="55,117 1385,117" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<polyline points="80,260 1360,260" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<polyline points="80,248 80,272" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="80" y="227" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">1 Jul 2016</text>
+<polyline points="720,248 720,272" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="720" y="227" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">1 Sep 2016</text>
+<polyline points="1040,248 1040,272" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="1040" y="227" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">1 Oct 2016</text>
+<polyline points="1360,248 1360,272" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="1360" y="227" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#172c43">1 Nov 2016</text>
+<rect x="80" y="290" width="620" height="155" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="390.0" y="345.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">TRAIN</text>
+<text x="390.0" y="374.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">1 Jul – 1 Sep 2016</text>
+<text x="390.0" y="403.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">6,371 rows</text>
+<rect x="720" y="290" width="300" height="155" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="870.0" y="345.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">VALIDATION</text>
+<text x="870.0" y="374.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">1 Sep – 1 Oct 2016</text>
+<text x="870.0" y="403.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">2,836 rows</text>
+<rect x="1040" y="290" width="320" height="155" rx="10" fill="#f0f5fb" stroke="#24558a" stroke-width="1.8"/>
+<text x="1200.0" y="345.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">TEST</text>
+<text x="1200.0" y="374.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">1 Oct – 1 Nov 2016</text>
+<text x="1200.0" y="403.98" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">3,207 rows</text>
+<text x="100" y="495" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Labels known before</text>
+<text x="100" y="525" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">1 Sep 2016</text>
+<text x="740" y="495" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Labels known before</text>
+<text x="740" y="525" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">1 Oct 2016</text>
+<text x="1060" y="495" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">Labels known before</text>
+<text x="1060" y="525" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#172c43">7 Nov 2016</text>
+<rect x="80" y="595" width="590" height="85" rx="10" fill="#faf5ee" stroke="#a36c32" stroke-width="1.8"/>
+<text x="375.0" y="630.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">1,462 case-boundary exclusions</text>
+<text x="375.0" y="659.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Entire cases purged across windows</text>
+<rect x="720" y="595" width="640" height="85" rx="10" fill="#faf5ee" stroke="#a36c32" stroke-width="1.8"/>
+<text x="1040.0" y="630.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">1,079 label-maturity exclusions</text>
+<text x="1040.0" y="659.48" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172c43">Outcomes unavailable at the relevant cutoff</text>
+<text x="80" y="747" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#172c43">October untouched for model/threshold selection; scored only in the final frozen evaluation.</text>
+<polyline points="55,780 1385,780" fill="none" stroke="#52657a" stroke-width="2.2" stroke-linejoin="round"  />
+<text x="55" y="804" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">14,955 labeled = 6,371 train + 2,836 validation + 3,207 test + 2,541 excluded.</text>
+<text x="55" y="831" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#52657a">Unlabeled transactions are excluded separately; no random train/test split.</text>
+<text x="55" y="878" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start" fill="#52657a">Source: backend/ml/config.py; splits.py; results/configuration.json (split_audit)</text>
+</svg>
